@@ -1,16 +1,41 @@
-const BASE_URL = 'http://localhost:8000'
+// const BASE_URL = 'http://localhost:8000'
+const BASE_URL = ''
+
 let wrapper = document.getElementById('wrapper')
 
-const firstOpen = (d) => {
+const openDoor = (d, backDoor) => {
     fetch(BASE_URL + '/api/toggledoor/' + d.id)
-    .then(res => {
-        // location.reload();
+    .then(res => res.json())
+    .then(data => {
+        if(data.isOpen){
+            link = data.image.replace('/frontend','')
+
+                backDoor.style.backgroundImage = `url("${link}")`
+        }
+    })
+}
+
+const openImageModal = (e) => {
+    
+    modal = document.createElement('div')
+    modal.classList.add('modal')
+    document.body.appendChild(modal)
+    modal.style.backgroundImage = e.target.style.backgroundImage
+
+
+    modal.addEventListener('click', ()=>{
+        document.body.removeChild(modal)
     })
 }
 
 const createDoor = (d, canToggle) => {
     let backDoor = document.createElement('div')
     backDoor.className = 'backDoor'
+
+    backDoor.addEventListener('click', (e)=>{
+        openImageModal(e)
+    })
+
     let door = document.createElement('div')
     door.className = 'door'
 
@@ -20,9 +45,7 @@ const createDoor = (d, canToggle) => {
     door.innerText = `${dateNum}.`
     if(canToggle){
         door.addEventListener('click', ()=>{
-            if(!d.isOpen){
-                firstOpen(d)
-            }
+            openDoor(d,backDoor)
             door.classList.toggle('doorOpen')
         })
     }

@@ -16,4 +16,5 @@ def toggleDoorById(request, id):
     door = Door.objects.get(id=id)
     door.isOpen = not door.isOpen
     door.save()
-    return redirect('home')
+    ser = DoorSerializer(door, many=False)
+    return Response(ser.data)
