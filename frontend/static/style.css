@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
+
+:root{
+    --door-size: 25vw;
+    --max-door-size: 200px;
+    font-family: 'Mountains of Christmas', serif;
+}
+
 body{
     width: 100%;
     min-height: 100vh;
@@ -5,18 +13,84 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url('bg.jpg');
+    background-size: cover;
 }
 
 #wrapper{
     width: 90vw;
-    max-width: 800px;
+    max-width: 1200px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
 }
 
-.door{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.backDoor
+{
+  background-color: #333;
+  position:relative;
+  width:var(--door-size);
+  height:var(--door-size);
+  max-width:var(--max-door-size);
+  max-height:var(--max-door-size);
+  margin: 0 auto;
+  margin-top:50px;
+  background-size: cover;
 }
+
+.door
+{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 10%;
+  background-color: rgb(100, 0, 0);
+  background-image: url('ribbon.png');
+  background-size: cover;
+  background-position: center;
+  box-sizing: border-box;
+  border: 5px solid white;
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:var(--door-size);
+  height:var(--door-size);
+  max-width:var(--max-door-size);
+  max-height:var(--max-door-size);
+  transform-origin: left;
+  /*Speed of the Door animation*/
+  transition: all 0.5s ease-in-out;
+
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+}
+
+.doorOpen
+{
+  transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-105deg);
+}
+
+.filler{
+    display: none;
+}
+
+@media only screen and (min-width: 800px) {
+    :root{
+        --door-size: 10vw;
+        --max-door-size: 130px;
+    }
+
+    .filler{
+        display: block;
+    }
+
+    #wrapper{
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0px;
+    }
+
+    .door{
+      font-size: 2rem;
+    }
+
+  }
